@@ -1,0 +1,42 @@
+group 'com.pirack.dw'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scala'
+apply plugin: "application"
+
+
+sourceCompatibility = 1.8
+
+mainClassName = "com.pirack.MyApplication"
+
+project.ext {
+    dropwizardVersion = '1.0.0'
+    configPath = "$rootProject.projectDir"
+}
+
+run {
+    args 'server', configPath + '/config.yml'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
+    compile group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: dropwizardVersion
+    compile group: 'io.dropwizard', name: 'dropwizard-forms', version: dropwizardVersion
+
+
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.0.0'
+
+    // these three have been compiled from sources, as not yet available in mvnrepo
+    compile group: 'com.datasift.dropwizard.scala', name: 'dropwizard-scala-jersey_2.10', version: '1.0.0-1'
+    compile group: 'com.datasift.dropwizard.scala', name: 'dropwizard-scala-core_2.10', version: '1.0.0-1'
+    compile group: 'com.datasift.dropwizard.scala', name: 'dropwizard-scala-validation_2.10', version: '1.0.0-1'
+
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.10.6'
+
+}
